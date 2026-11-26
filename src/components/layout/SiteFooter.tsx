@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="closing__cta close--type">
           <div className="section-head">
             <h2 id="close-h">Open to senior software roles</h2>
-            <p>Based in {profile.location}. React, TypeScript and Node.js.</p>
+            <p>React, TypeScript and Node.js.</p>
           </div>
           <a className="btn btn--primary btn--xl btn--wide" href={mailto}>
             {profile.mainAction}

@@ -1,10 +1,10 @@
-import { mailto, profile, resumeUrl } from '@/content/profile';
+import { mailto, profile, resumeUrl, yearsOfExperience } from '@/content/profile';
 
 const facts = [
-  { label: 'Experience', value: '5 years' },
+  { label: 'Experience', value: `${yearsOfExperience} years` },
   { label: 'Front end', value: 'React and Next.js' },
   { label: 'Back end', value: 'Node.js and ASP.NET' },
-  { label: 'Based in', value: profile.location },
+  { label: 'Degree', value: 'Computer Science and Engineering' },
 ] as const;
 
 export function Hero() {
@@ -16,9 +16,9 @@ export function Hero() {
             <a className="pill" href="#projects">
               <span>{profile.name}</span>
             </a>
-            <h1 id="hero-h" className="mo-lt__type">Projects in React, TypeScript and Node</h1>
+            <h1 id="hero-h" className="mo-lt__type">Projects in React, Next, Node and ASP.NET</h1>
             <p className="hero__lead">
-              Browser extensions, bank statement tools, restaurant ordering and AI products, built by a software engineer with five years of practice.
+              Building diverse software products across e-commerce, AI and fintech, with over {yearsOfExperience} years of experience.
             </p>
             <div className="btn-row">
               <a className="btn btn--primary" href={mailto}>{profile.mainAction}</a>

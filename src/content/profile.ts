@@ -2,7 +2,6 @@ import type { NavLink } from './types';
 
 export const profile = {
   name: 'Ugochukwu Okoli',
-  location: 'Nigeria',
   site: 'https://ugo-okoli.vercel.app',
   email: 'okoliryan50@gmail.com',
   github: 'https://github.com/Okoli-Ryan',
@@ -12,6 +11,9 @@ export const profile = {
   description:
     'Projects by Ugochukwu Okoli: Figo AI Labs, MailPilot, WatchParty and more, built with TypeScript, React and Node.js.',
 } as const;
+
+/** Counted from the first role (March 2021). Worked out at build time, so it moves on with the next build. */
+export const yearsOfExperience = new Date().getFullYear() - 2021;
 
 export const mailto = `mailto:${profile.email}`;
 
