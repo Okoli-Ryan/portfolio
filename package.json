@@ -1,0 +1,25 @@
+{
+  "name": "ugochukwu-okoli-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "check": "node C:/Users/HP/.claude/skills/design-taste-frontend/scripts/gate.mjs out/index.html"
+  },
+  "dependencies": {
+    "next": "16.4.6",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.6",
+    "typescript": "^5"
+  }
+}

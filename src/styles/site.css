@@ -1,0 +1,126 @@
+/*
+  Page rules only (docs/NEXTJS_GUIDELINES.md, section 7). Everything else comes from the design kit in
+  public/assets. Next emits this file before the kit's stylesheets, so a rule that overrides the kit
+  needs higher specificity (html ...). Deal: palette graphite-safety-orange, pairing schibsted.
+*/
+html:root {
+  --p-bg: #18191b; --p-surface: #222427; --p-ink: #eff0f1; --p-muted: #9c9ea3;
+  --p-accent: #ff4a1f; --p-accent-ink: #18191b; --p-action: #ff4a1f; --p-action-ink: #18191b;
+  --p-inv-bg: #eff0f1; --p-inv-surface: #dedfe0; --p-inv-ink: #18191b; --p-inv-muted: #5b5c5e;
+  --p-inv-accent: #18191b; --p-inv-accent-ink: #eff0f1; --p-inv-action: #18191b; --p-inv-action-ink: #eff0f1;
+  --font-display: "Schibsted Grotesk", system-ui, sans-serif;
+  --font-text: "Schibsted Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.035em;
+  --display-tracking-xl: -0.042em;
+  --ly-scale: 0.98;
+}
+
+/* hero: the lead stays in the ink (7:1) */
+html .hero--statement .hero__lead { color: var(--ink); max-width: 52ch; }
+
+/* ---------- WatchParty below 1024: unpinned steps, stacked, filling two screens ---------- */
+@media (max-width: 1023px) {
+  html #watchparty.section { min-height: calc(2 * 100svh); }
+  html #watchparty .mo-pc__step { display: block; }
+  html #watchparty .mo-pc__step .mo-pc__visual { margin: var(--s-4) 0 0; }
+  html #watchparty .mo-pc__visual > .il { width: 100%; max-height: none; aspect-ratio: 16 / 10; }
+}
+@media (max-width: 639px) { html #watchparty .mo-pc__visual > .il { aspect-ratio: 1; } }
+
+/* nothing is ever cut on a short window: a section grows when its content needs more than the screen */
+html main > .section:not(#watchparty) { height: auto; min-height: calc(var(--h, 1) * 100svh); }
+
+/* ---------- project pictures: linked ones zoom inside their frame ---------- */
+.shot { display: block; overflow: hidden; border-radius: var(--r-lg); background: var(--surface); }
+.il { display: block; width: 100%; height: 100%; }
+.shot > .il { transition: transform 300ms ease-out; }
+a.shot:hover > .il { transform: scale(1.03); }
+.shot--tall { aspect-ratio: 4 / 3; align-self: start; }
+.shot--wide { margin-top: var(--s-7); flex: none; height: clamp(260px, calc(100svh - 440px), 560px); }
+.mo-pc__visual > .il { aspect-ratio: 4 / 3; }
+@media (max-width: 1023px) {
+  .shot--tall { margin-top: var(--s-6); aspect-ratio: 16 / 9; }
+  .shot--wide { aspect-ratio: 4 / 3; height: auto; }
+}
+@media (max-width: 639px) { html .shot--tall { aspect-ratio: 5 / 3; margin-top: var(--s-4); } }
+
+/* ---------- see more ---------- */
+html:not([data-projects='all']) main > .project--more { display: none; }
+html .show-more { align-self: flex-start; width: fit-content; margin-top: var(--s-6); }
+/* revealed projects fade and rise in once; the section's ground stays put, so nothing flashes behind */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-projects='all'] main > .project--more > .wrap { animation: reveal 700ms cubic-bezier(.16, 1, .3, 1) 200ms both; }
+}
+@keyframes reveal { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: none; } }
+
+/* ---------- animated illustrations: one 2.4 s play (under 5 s with delays), resting on the finished picture ---------- */
+.il-stage { fill: #1b1c1f; }
+.il-panel { fill: #2c2e32; }
+.il-line { fill: #43464c; }
+.il-soft { fill: #585c63; }
+.il-accent { fill: #ff4a1f; }
+.il-wire, .il-signal { fill: none; stroke: #43464c; stroke-width: 6; }
+.il-signal { stroke: #ff4a1f; stroke-linecap: round; stroke-dasharray: 14 86; }
+.il-a { transform-box: fill-box; animation-duration: 2.4s; animation-iteration-count: 1; animation-timing-function: ease-in-out; animation-fill-mode: both; }
+.il-rise { animation-name: il-rise; }
+.il-pulse { animation-name: il-pulse; transform-origin: center; }
+.il-grow { animation-name: il-grow; transform-origin: bottom; }
+.il-fill { animation-name: il-fill; transform-origin: left; animation-timing-function: linear; }
+.il-type { animation-name: il-type; transform-origin: left; }
+.il-blink { animation-name: il-blink; }
+.il-lift { animation-name: il-lift; }
+.il-flow { animation-name: il-flow; animation-timing-function: linear; }
+/* every play starts and ends on the finished picture, so nothing is revealed by scrolling */
+@keyframes il-rise { 0%, 70%, 100% { opacity: 1; transform: none; } 20% { opacity: .35; transform: translateY(18px); } }
+@keyframes il-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.09); } }
+@keyframes il-grow { 0%, 75%, 100% { transform: scaleY(1); } 30% { transform: scaleY(.45); } }
+@keyframes il-fill { 0%, 100% { transform: scaleX(1); } 12% { transform: scaleX(.05); } }
+@keyframes il-type { 0%, 75%, 100% { transform: scaleX(1); } 20% { transform: scaleX(.15); } }
+@keyframes il-blink { 0%, 60%, 100% { opacity: 1; } 30% { opacity: .45; } }
+@keyframes il-lift { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(-22px); } }
+@keyframes il-flow { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+/* still until on screen (PlayOnView); in the pinned frame only the picture in hand plays, so each step starts its own */
+.il:not(.is-playing) .il-a,
+[data-moment='pinned-chapters'].is-live .mo-pc__visual:not(.is-on) .il .il-a { animation: none; }
+
+/* ---------- work experience: company marquee ---------- */
+.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee__track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee__list { display: flex; margin: 0; padding: 0; list-style: none; }
+.marquee__list li { padding: var(--s-4) var(--s-8) var(--s-4) 0; white-space: nowrap; font: var(--display-weight) clamp(24px, 2.6vw, 38px)/1.3 var(--font-display); letter-spacing: var(--display-tracking); }
+.marquee__list li::after { content: ""; display: inline-block; width: 8px; height: 8px; margin-left: var(--s-8); border-radius: 50%; background: var(--accent); vertical-align: middle; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ---------- work experience: tool logos ---------- */
+.work__tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-4); margin: var(--s-6) 0 var(--s-5); }
+.work__tools h3 { margin: 0; font-size: var(--t-card); }
+.stack-grid { list-style: none; margin: 0; padding: 0; }
+html .stack-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.stack-grid .stack-cell { display: grid; align-content: center; justify-items: start; gap: var(--s-3); min-height: 136px; padding: var(--s-5); }
+.stack-cell .ic-tile { --tile: 56px; animation: bob 3.6s ease-in-out infinite; }
+.stack-cell .ic { --ic-s: 32px; }
+@keyframes bob { 0%, 100% { transform: none; } 50% { transform: translateY(-6px); } }
+@media (max-width: 1023px) { html .stack-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 639px) {
+  html .stack-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stack-grid .stack-cell { min-height: 112px; padding: var(--s-3); gap: var(--s-2); }
+  .stack-cell .ic-tile { --tile: 48px; }
+  .stack-cell .ic { --ic-s: 28px; }
+  .footer__pages { display: none; }
+}
+
+/* ---------- pause and reduced motion ---------- */
+html[data-paused] .il-a, html[data-paused] .marquee__track, html[data-paused] .stack-cell .ic-tile { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .il-a, .marquee__track, .stack-cell .ic-tile { animation: none; }
+  .marquee { -webkit-mask-image: none; mask-image: none; }
+  .marquee__track { width: auto; }
+  .marquee__list { flex-wrap: wrap; }
+  .marquee__list[aria-hidden] { display: none; }
+  .pause-motion { display: none; }
+  .shot > .il { transition: none; }
+  a.shot:hover > .il { transform: none; }
+}
